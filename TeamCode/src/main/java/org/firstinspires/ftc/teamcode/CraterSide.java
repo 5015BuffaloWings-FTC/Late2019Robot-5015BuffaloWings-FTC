@@ -37,7 +37,7 @@ public class CraterSide extends LinearOpMode
 
         detector = new GoldDetector(); //Creates a dogeCV "Gold Detector", this detector finds the location of a visible gold mineral.
         detector.init(hardwareMap.appContext, CameraViewDisplay.getInstance()); //This activates the phone's camera
-        detector.cropBRCorner = new Point(330 ,478);//make x less to crop more
+        detector.cropBRCorner = new Point(330 ,478);//make x less to crop out more of screen
         //detector.cropTLCorner = new Point(300, 1); //Crops top left corner of screen. This removes excess cubes from the visible input
         detector.useDefaults(); //Set detector to use default settings
         detector.downscale = 0.4; //Down scale for input frames. This speeds up computation
