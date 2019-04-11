@@ -37,8 +37,7 @@ public class CraterSide extends LinearOpMode
 
         detector = new GoldDetector(); //Creates a dogeCV "Gold Detector", this detector finds the location of a visible gold mineral.
         detector.init(hardwareMap.appContext, CameraViewDisplay.getInstance()); //This activates the phone's camera
-        detector.cropBRCorner = new Point(330 ,478);//make x less to crop out more of screen
-        //detector.cropTLCorner = new Point(300, 1); //Crops top left corner of screen. This removes excess cubes from the visible input
+        detector.cropBRCorner = new Point(330 ,478);//Crops Bottom Right corner of screen. This removes excess cubes from the visible input. To crop more of the screen, raise the value of x.-
         detector.useDefaults(); //Set detector to use default settings
         detector.downscale = 0.4; //Down scale for input frames. This speeds up computation
         detector.areaScoringMethod = DogeCV.AreaScoringMethod.MAX_AREA; //Inputs max camera resolution
@@ -47,20 +46,23 @@ public class CraterSide extends LinearOpMode
         detector.ratioScorer.perfectRatio = 1.0; //Ratio adjustment
         detector.enable(); // Start the detector!
 
-        robot.leadScrewMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        /**
+         * This Code resets the lead screw to its starting position
+         */
+        robot.leadScrewMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);//Sets the leadscrew to run without the use of encoders
         while (robot.leadScrewLimitBot.getState() && !isStopRequested()) {
             robot.leadScrewMotor.setPower(-0.75);
         }
         robot.leadScrewMotor.setPower(0);
 
-        robot.resetEncoders();
-        robot.driveWithEncoders();
-        sleep(5000);
-        telemetry.addData("STATE: ", "READY TO ROCK AND ROLL");
-        telemetry.update();
-        waitForStart();
+        robot.resetEncoders();//Resets all motor encoders and sets them to run to position
+        robot.driveWithEncoders();//Allows the robot to drive robot.power() while still reading encoders
+        sleep(5000);//sleeps to give time for camera to turn on
+        telemetry.addData("STATE: ", "READY TO ROCK AND ROLL"); //Tells the drivers that the robot is ready to run
+        telemetry.update();//updates the telemetry
+        waitForStart();//waits for driver to hit start
 
-        drop();
+        drop();//Makes the Robot drop from the lander
 
         Rect rect0 = detector.getFoundRect(); //Draws a virtual rectangle around chosen cube
         Rect rect1 = detector.getFoundRect(); //Draws a virtual rectangle around chosen cube
