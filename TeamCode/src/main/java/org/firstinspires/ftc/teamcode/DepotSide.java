@@ -130,132 +130,27 @@ public class DepotSide extends LinearOpMode
 
     public void drop()
     {
-//        while(robot.leadScrewMotor.getCurrentPosition() < 24000 && !isStopRequested())
-//        {
-//            robot.leadScrewMotor.setTargetPosition(24000);
-//            robot.leadScrewMotor.setPower(1);
-//        }
-//        robot.leadScrewMotor.setPower(0);
+        while(robot.leadScrewMotor.getCurrentPosition() < 24000 && !isStopRequested())
+        {
+            robot.leadScrewMotor.setTargetPosition(24000);
+            robot.leadScrewMotor.setPower(1);
+        }
+        robot.leadScrewMotor.setPower(0);
     }
 
     public void cubeRight()
     {
-        robot.setStrafeLeft(); //come off wall
-        while(robot.leftBackMotor.getCurrentPosition() < 1500   && !isStopRequested())
-        {
-            robot.setPower(1);
-        }
-        robot.setPower(0);
 
-        robot.setDriveForward(); //line up to cube
-        robot.resetEncoders();
-        robot.driveWithEncoders();
-        while(robot.leftBackMotor.getCurrentPosition() < 800   && !isStopRequested())
-        {
-            robot.setPower(1);
-        }
-        robot.setPower(0);
-
-        robot.setStrafeLeft(); //hit cube
-        robot.resetEncoders();
-        robot.driveWithEncoders();
-        while(robot.leftBackMotor.getCurrentPosition() < 1500   && !isStopRequested())
-        {
-            robot.setPower(1);
-        }
-        robot.setPower(0);
-
-        robot.setStrafeRight(); //back up from cube
-        robot.resetEncoders();
-        robot.driveWithEncoders();
-        while(robot.leftBackMotor.getCurrentPosition() < 650   && !isStopRequested())
-        {
-            robot.setPower(1);
-        }
-        robot.setPower(0);
-
-        robot.setDriveBackward(); //drive to wall
-        robot.resetEncoders();
-        robot.driveWithEncoders();
-        while(robot.leftBackMotor.getCurrentPosition() < 4600   && !isStopRequested())
-        {
-            robot.setPower(1);
-        }
-        robot.setPower(0);
     }
 
     public void cubeCenter()
     {
-        robot.setStrafeLeft(); //off lander + hit cube
-        while(robot.leftBackMotor.getCurrentPosition() < 2400  && !isStopRequested())
-        {
-            robot.setPower(1);
-        }
-        robot.setPower(0);
 
-        robot.setStrafeRight();// back up from cube
-        robot.resetEncoders();
-        robot.driveWithEncoders();
-        while(robot.leftBackMotor.getCurrentPosition() < 650   && !isStopRequested())
-        {
-            robot.setPower(1);
-        }
-        robot.setPower(0);
-
-        robot.setDriveBackward(); //drive to wall
-        robot.resetEncoders();
-        robot.driveWithEncoders();
-        while(robot.leftBackMotor.getCurrentPosition() < 3000   && !isStopRequested())
-        {
-            robot.setPower(1);
-        }
-        robot.setPower(0);
     }
 
     public void cubeLeft()
     {
-        robot.setStrafeLeft(); //get away form lander
-        while(robot.leftBackMotor.getCurrentPosition() < 1500   && !isStopRequested())
-        {
-            robot.setPower(1);
-        }
-        robot.setPower(0);
 
-        robot.setDriveBackward(); //line up to cube
-        robot.resetEncoders();
-        robot.driveWithEncoders();
-        while(robot.leftBackMotor.getCurrentPosition() < 750   && !isStopRequested())
-        {
-            robot.setPower(1);
-        }
-        robot.setPower(0);
-
-        robot.setStrafeLeft(); //hit cube
-        robot.resetEncoders();
-        robot.driveWithEncoders();
-        while(robot.leftBackMotor.getCurrentPosition() < 700   && !isStopRequested())
-        {
-            robot.setPower(1);
-        }
-        robot.setPower(0);
-
-        robot.setStrafeRight(); //back up from cube
-        robot.resetEncoders();
-        robot.driveWithEncoders();
-        while(robot.leftBackMotor.getCurrentPosition() < 700   && !isStopRequested())
-        {
-            robot.setPower(1);
-        }
-        robot.setPower(0);
-
-        robot.setDriveBackward(); //drive to wall
-        robot.resetEncoders();
-        robot.driveWithEncoders();
-        while(robot.leftBackMotor.getCurrentPosition() < 2000   && !isStopRequested())
-        {
-            robot.setPower(1);
-        }
-        robot.setPower(0);
     }
 }
 

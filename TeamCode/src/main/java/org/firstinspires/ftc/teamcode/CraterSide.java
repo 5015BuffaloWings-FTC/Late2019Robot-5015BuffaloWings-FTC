@@ -139,7 +139,7 @@ public class CraterSide extends LinearOpMode
     public void cubeRight()
     {
         robot.setStrafeLeft(); //come off wall
-        while(robot.leftBackMotor.getCurrentPosition() < 1500   && !isStopRequested())
+        while(robot.leftBackMotor.getCurrentPosition() < 1300   && !isStopRequested())
         {
             robot.setPower(1);
         }
@@ -166,7 +166,7 @@ public class CraterSide extends LinearOpMode
         robot.setStrafeRight(); //back up from cube
         robot.resetEncoders();
         robot.driveWithEncoders();
-        while(robot.leftBackMotor.getCurrentPosition() < 300   && !isStopRequested())
+        while(robot.leftBackMotor.getCurrentPosition() < 550   && !isStopRequested())
         {
             robot.setPower(1);
         }
@@ -202,7 +202,7 @@ public class CraterSide extends LinearOpMode
         robot.setStrafeLeft(); //back off wall
         robot.resetEncoders();
         robot.driveWithEncoders();
-        while(robot.leftBackMotor.getCurrentPosition() < 250   && !isStopRequested())
+        while(robot.leftBackMotor.getCurrentPosition() < 50   && !isStopRequested())
         {
             robot.setPower(1);
         }
@@ -217,16 +217,18 @@ public class CraterSide extends LinearOpMode
         }
         robot.setPower(0);
 
+        //collection down
         robot.rightCollectionServo.setPower(-1);
         robot.leftCollectionServo.setPower(1);
         sleep(1200);
         robot.rightCollectionServo.setPower(0);
         robot.leftCollectionServo.setPower(0);
 
-        robot.inTakeServo.setPower(-1);
-        sleep(500);
-        robot.inTakeServo.setPower(0);
 
+        //Out takes the Team Marker
+        robot.inTakeServo.setPower(-1);
+        sleep(1000);
+        robot.inTakeServo.setPower(0);
 
         robot.setDriveBackward(); //drive to crater
         robot.resetEncoders();
@@ -236,6 +238,8 @@ public class CraterSide extends LinearOpMode
             robot.setPower(1);
         }
         robot.setPower(0);
+
+        //reset Lead screw
 
         while(robot.leadScrewMotor.getCurrentPosition() > 13250)
         {
@@ -271,6 +275,7 @@ public class CraterSide extends LinearOpMode
         }
         robot.setPower(0);
 
+
         robot.setRotateRight(); //Turn to face wall
         robot.resetEncoders();
         robot.driveWithEncoders();
@@ -292,7 +297,7 @@ public class CraterSide extends LinearOpMode
         robot.setStrafeLeft(); //back off wall
         robot.resetEncoders();
         robot.driveWithEncoders();
-        while(robot.leftBackMotor.getCurrentPosition() < 250   && !isStopRequested())
+        while(robot.leftBackMotor.getCurrentPosition() < 50   && !isStopRequested())
         {
             robot.setPower(1);
         }
@@ -301,13 +306,26 @@ public class CraterSide extends LinearOpMode
         robot.setDriveForward(); //drive to depot
         robot.resetEncoders();
         robot.driveWithEncoders();
-        while(robot.leftBackMotor.getCurrentPosition() < 3200   && !isStopRequested())
+        while(robot.leftBackMotor.getCurrentPosition() < 2500   && !isStopRequested())
         {
             robot.setPower(1);
         }
         robot.setPower(0);
 
-        robot.setDriveBackward(); //drive to depot
+        //collection down
+        robot.rightCollectionServo.setPower(-1);
+        robot.leftCollectionServo.setPower(1);
+        sleep(1200);
+        robot.rightCollectionServo.setPower(0);
+        robot.leftCollectionServo.setPower(0);
+
+
+        //Out takes the Team Marker
+        robot.inTakeServo.setPower(-1);
+        sleep(1000);
+        robot.inTakeServo.setPower(0);
+
+        robot.setDriveBackward(); //drive to crater
         robot.resetEncoders();
         robot.driveWithEncoders();
         while(robot.leftBackMotor.getCurrentPosition() < 5000   && !isStopRequested())
@@ -316,12 +334,19 @@ public class CraterSide extends LinearOpMode
         }
         robot.setPower(0);
 
+        //reset Lead screw
+        while(robot.leadScrewMotor.getCurrentPosition() > 13250)
+        {
+            robot.leadScrewMotor.setPower(-1);
+        }
+        robot.leadScrewMotor.setPower(0);
+
     }
 
     public void cubeLeft()
     {
         robot.setStrafeLeft(); //get away form lander
-        while(robot.leftBackMotor.getCurrentPosition() < 1500   && !isStopRequested())
+        while(robot.leftBackMotor.getCurrentPosition() < 1300   && !isStopRequested())
         {
             robot.setPower(1);
         }
@@ -330,7 +355,7 @@ public class CraterSide extends LinearOpMode
         robot.setDriveBackward(); //line up to cube
         robot.resetEncoders();
         robot.driveWithEncoders();
-        while(robot.leftBackMotor.getCurrentPosition() < 750   && !isStopRequested())
+        while(robot.leftBackMotor.getCurrentPosition() < 550   && !isStopRequested())
         {
             robot.setPower(1);
         }
@@ -363,6 +388,7 @@ public class CraterSide extends LinearOpMode
         }
         robot.setPower(0);
 
+
         robot.setRotateRight(); //Turn to face wall
         robot.resetEncoders();
         robot.driveWithEncoders();
@@ -384,7 +410,7 @@ public class CraterSide extends LinearOpMode
         robot.setStrafeLeft(); //back off wall
         robot.resetEncoders();
         robot.driveWithEncoders();
-        while(robot.leftBackMotor.getCurrentPosition() < 250   && !isStopRequested())
+        while(robot.leftBackMotor.getCurrentPosition() < 75   && !isStopRequested())
         {
             robot.setPower(1);
         }
@@ -393,13 +419,26 @@ public class CraterSide extends LinearOpMode
         robot.setDriveForward(); //drive to depot
         robot.resetEncoders();
         robot.driveWithEncoders();
-        while(robot.leftBackMotor.getCurrentPosition() < 3200   && !isStopRequested())
+        while(robot.leftBackMotor.getCurrentPosition() < 2500   && !isStopRequested())
         {
             robot.setPower(1);
         }
         robot.setPower(0);
 
-        robot.setDriveBackward(); //drive to depot
+        //collection down
+        robot.rightCollectionServo.setPower(-1);
+        robot.leftCollectionServo.setPower(1);
+        sleep(1200);
+        robot.rightCollectionServo.setPower(0);
+        robot.leftCollectionServo.setPower(0);
+
+
+        //Out takes the Team Marker
+        robot.inTakeServo.setPower(-1);
+        sleep(1000);
+        robot.inTakeServo.setPower(0);
+
+        robot.setDriveBackward(); //drive to crater
         robot.resetEncoders();
         robot.driveWithEncoders();
         while(robot.leftBackMotor.getCurrentPosition() < 5000   && !isStopRequested())
@@ -407,6 +446,14 @@ public class CraterSide extends LinearOpMode
             robot.setPower(1);
         }
         robot.setPower(0);
+
+        //reset Lead screw
+        while(robot.leadScrewMotor.getCurrentPosition() > 13250)
+        {
+            robot.leadScrewMotor.setPower(-1);
+        }
+        robot.leadScrewMotor.setPower(0);
+
     }
 }
 
