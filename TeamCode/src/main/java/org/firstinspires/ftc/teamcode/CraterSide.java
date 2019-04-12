@@ -87,7 +87,7 @@ public class CraterSide extends LinearOpMode
          * Section [0, 160) corresponds to "LEFT"
          * Using these three sections, we can determine the position of the cube
          */
-        if(averagePosition > 320)
+        if(averagePosition > 320) 
             cubePosition = "RIGHT";
         else if(160 <= averagePosition)
             cubePosition = "CENTER";
