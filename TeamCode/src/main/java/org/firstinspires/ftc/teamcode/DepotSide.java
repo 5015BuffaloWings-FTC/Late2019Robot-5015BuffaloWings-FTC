@@ -39,8 +39,7 @@ public class DepotSide extends LinearOpMode
 
         detector = new GoldDetector(); //Creates a dogeCV "Gold Detector", this detector finds the location of a visible gold mineral.
         detector.init(hardwareMap.appContext, CameraViewDisplay.getInstance()); //This activates the phone's camera
-        detector.cropBRCorner = new Point(330 ,478);//make x less to crop more
-        //detector.cropTLCorner = new Point(300, 1); //Crops top left corner of screen. This removes excess cubes from the visible input
+        detector.cropBRCorner = new Point(330 ,478);//Crops Bottom Right corner of screen. This removes excess cubes from the visible input. To crop more of the screen, raise the value of x.-
         detector.useDefaults(); //Set detector to use default settings
         detector.downscale = 0.4; //Down scale for input frames. This speeds up computation
         detector.areaScoringMethod = DogeCV.AreaScoringMethod.MAX_AREA; //Inputs max camera resolution
@@ -49,18 +48,23 @@ public class DepotSide extends LinearOpMode
         detector.ratioScorer.perfectRatio = 1.0; //Ratio adjustment
         detector.enable(); // Start the detector!
 
-        robot.leadScrewMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        /**
+         * This Code resets the lead screw to its starting position
+         */
+        robot.leadScrewMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);//Sets the leadscrew to run without the use of encoders
         while (robot.leadScrewLimitBot.getState() && !isStopRequested()) {
             robot.leadScrewMotor.setPower(-0.75);
         }
         robot.leadScrewMotor.setPower(0);
 
-        robot.resetEncoders();
-        robot.driveWithEncoders();
-        sleep(5000);
-        telemetry.addData("STATE: ", "READY TO ROCK AND ROLL");
-        telemetry.update();
-        waitForStart();
+        robot.resetEncoders();//Resets all motor encoders and sets them to run to position
+        robot.driveWithEncoders();//Allows the robot to drive robot.power() while still reading encoders
+        sleep(5000);//sleeps to give time for camera to turn on
+        telemetry.addData("STATE: ", "READY TO ROCK AND ROLL"); //Tells the drivers that the robot is ready to run
+        telemetry.update();//updates the telemetry
+        waitForStart();//waits for driver to hit start
+
+        drop();//Makes the Robot drop from the lander
 
         Rect rect0 = detector.getFoundRect(); //Draws a virtual rectangle around chosen cube
         Rect rect1 = detector.getFoundRect(); //Draws a virtual rectangle around chosen cube
@@ -103,22 +107,18 @@ public class DepotSide extends LinearOpMode
         switch(cubePosition)
         {
             case "LEFT": //Runs code pertaining to a cube in position "LEFT"
-                drop();
                 cubeLeft();
                 robot.setPower(0);
                 break;
             case "CENTER": //Runs code pertaining to a cube in position "CENTER"
-                drop();
                 cubeCenter();
                 robot.setPower(0);
                 break;
             case "RIGHT": //Runs code pertaining to a cube in position "RIGHT"
-                drop();
                 cubeRight();
                 robot.setPower(0);
                 break;
             default:  //If any vision errors occur, It will default to run as if the cube was in position "CENTER"
-                drop();
                 cubeCenter();
                 robot.setPower(0);
                 break;
@@ -140,16 +140,322 @@ public class DepotSide extends LinearOpMode
 
     public void cubeRight()
     {
+        robot.setStrafeLeft(); //come off wall
+        while(robot.leftBackMotor.getCurrentPosition() < 1300   && !isStopRequested())
+        {
+            robot.setPower(1);
+        }
+        robot.setPower(0);
 
+
+        robot.setDriveForward(); //line up to cube
+        robot.resetEncoders();
+        robot.driveWithEncoders();
+        while(robot.leftBackMotor.getCurrentPosition() < 800   && !isStopRequested())
+        {
+            robot.setPower(1);
+        }
+        robot.setPower(0);
+
+        robot.setStrafeLeft(); //hit cube
+        robot.resetEncoders();
+        robot.driveWithEncoders();
+        while(robot.leftBackMotor.getCurrentPosition() < 1300   && !isStopRequested())
+        {
+            robot.setPower(1);
+        }
+        robot.setPower(0);
+
+        robot.setStrafeRight(); //back up from cube
+        robot.resetEncoders();
+        robot.driveWithEncoders();
+        while(robot.leftBackMotor.getCurrentPosition() < 550   && !isStopRequested())
+        {
+            robot.setPower(1);
+        }
+        robot.setPower(0);
+
+        robot.setDriveBackward(); //drive to wall
+        robot.resetEncoders();
+        robot.driveWithEncoders();
+        while(robot.leftBackMotor.getCurrentPosition() < 4600   && !isStopRequested())
+        {
+            robot.setPower(1);
+        }
+        robot.setPower(0);
+
+        robot.setRotateRight(); //Turn to face wall
+        robot.resetEncoders();
+        robot.driveWithEncoders();
+        while(robot.leftBackMotor.getCurrentPosition() < 1700   && !isStopRequested())
+        {
+            robot.setPower(1);
+        }
+        robot.setPower(0);
+
+        robot.setStrafeRight(); //Line up to wall
+        robot.resetEncoders();
+        robot.driveWithEncoders();
+        while(robot.leftBackMotor.getCurrentPosition() < 1250   && !isStopRequested())
+        {
+            robot.setPower(1);
+        }
+        robot.setPower(0);
+
+        robot.setStrafeLeft(); //back off wall
+        robot.resetEncoders();
+        robot.driveWithEncoders();
+        while(robot.leftBackMotor.getCurrentPosition() < 50   && !isStopRequested())
+        {
+            robot.setPower(1);
+        }
+        robot.setPower(0);
+
+        robot.setDriveForward(); //drive to depot
+        robot.resetEncoders();
+        robot.driveWithEncoders();
+        while(robot.leftBackMotor.getCurrentPosition() < 2500   && !isStopRequested())
+        {
+            robot.setPower(1);
+        }
+        robot.setPower(0);
+
+        //collection down
+        robot.rightCollectionServo.setPower(-1);
+        robot.leftCollectionServo.setPower(1);
+        sleep(1200);
+        robot.rightCollectionServo.setPower(0);
+        robot.leftCollectionServo.setPower(0);
+
+
+        //Out takes the Team Marker
+        robot.inTakeServo.setPower(-1);
+        sleep(1000);
+        robot.inTakeServo.setPower(0);
+
+        robot.setDriveBackward(); //drive to crater
+        robot.resetEncoders();
+        robot.driveWithEncoders();
+        while(robot.leftBackMotor.getCurrentPosition() < 5000   && !isStopRequested())
+        {
+            robot.setPower(1);
+        }
+        robot.setPower(0);
+
+        //reset Lead screw
+
+        while(robot.leadScrewMotor.getCurrentPosition() > 13250)
+        {
+            robot.leadScrewMotor.setPower(-1);
+        }
+        robot.leadScrewMotor.setPower(0);
     }
 
     public void cubeCenter()
     {
+        robot.setStrafeLeft(); //off lander + hit cube
+        while(robot.leftBackMotor.getCurrentPosition() < 2400  && !isStopRequested())
+        {
+            robot.setPower(1);
+        }
+        robot.setPower(0);
+
+        robot.setStrafeRight();// back up from cube
+        robot.resetEncoders();
+        robot.driveWithEncoders();
+        while(robot.leftBackMotor.getCurrentPosition() < 650   && !isStopRequested())
+        {
+            robot.setPower(1);
+        }
+        robot.setPower(0);
+
+        robot.setDriveBackward(); //drive to wall
+        robot.resetEncoders();
+        robot.driveWithEncoders();
+        while(robot.leftBackMotor.getCurrentPosition() < 3000   && !isStopRequested())
+        {
+            robot.setPower(1);
+        }
+        robot.setPower(0);
+
+
+        robot.setRotateRight(); //Turn to face wall
+        robot.resetEncoders();
+        robot.driveWithEncoders();
+        while(robot.leftBackMotor.getCurrentPosition() < 1700   && !isStopRequested())
+        {
+            robot.setPower(1);
+        }
+        robot.setPower(0);
+
+        robot.setStrafeRight(); //Line up to wall
+        robot.resetEncoders();
+        robot.driveWithEncoders();
+        while(robot.leftBackMotor.getCurrentPosition() < 1250   && !isStopRequested())
+        {
+            robot.setPower(1);
+        }
+        robot.setPower(0);
+
+        robot.setStrafeLeft(); //back off wall
+        robot.resetEncoders();
+        robot.driveWithEncoders();
+        while(robot.leftBackMotor.getCurrentPosition() < 50   && !isStopRequested())
+        {
+            robot.setPower(1);
+        }
+        robot.setPower(0);
+
+        robot.setDriveForward(); //drive to depot
+        robot.resetEncoders();
+        robot.driveWithEncoders();
+        while(robot.leftBackMotor.getCurrentPosition() < 2500   && !isStopRequested())
+        {
+            robot.setPower(1);
+        }
+        robot.setPower(0);
+
+        //collection down
+        robot.rightCollectionServo.setPower(-1);
+        robot.leftCollectionServo.setPower(1);
+        sleep(1200);
+        robot.rightCollectionServo.setPower(0);
+        robot.leftCollectionServo.setPower(0);
+
+
+        //Out takes the Team Marker
+        robot.inTakeServo.setPower(-1);
+        sleep(1000);
+        robot.inTakeServo.setPower(0);
+
+        robot.setDriveBackward(); //drive to crater
+        robot.resetEncoders();
+        robot.driveWithEncoders();
+        while(robot.leftBackMotor.getCurrentPosition() < 5000   && !isStopRequested())
+        {
+            robot.setPower(1);
+        }
+        robot.setPower(0);
+
+        //reset Lead screw
+        while(robot.leadScrewMotor.getCurrentPosition() > 13250)
+        {
+            robot.leadScrewMotor.setPower(-1);
+        }
+        robot.leadScrewMotor.setPower(0);
 
     }
 
     public void cubeLeft()
     {
+        robot.setStrafeLeft(); //get away form lander
+        while(robot.leftBackMotor.getCurrentPosition() < 1300   && !isStopRequested())
+        {
+            robot.setPower(1);
+        }
+        robot.setPower(0);
+
+        robot.setDriveBackward(); //line up to cube
+        robot.resetEncoders();
+        robot.driveWithEncoders();
+        while(robot.leftBackMotor.getCurrentPosition() < 550   && !isStopRequested())
+        {
+            robot.setPower(1);
+        }
+        robot.setPower(0);
+
+        robot.setStrafeLeft(); //hit cube
+        robot.resetEncoders();
+        robot.driveWithEncoders();
+        while(robot.leftBackMotor.getCurrentPosition() < 700   && !isStopRequested())
+        {
+            robot.setPower(1);
+        }
+        robot.setPower(0);
+
+        robot.setStrafeRight(); //back up from cube
+        robot.resetEncoders();
+        robot.driveWithEncoders();
+        while(robot.leftBackMotor.getCurrentPosition() < 700   && !isStopRequested())
+        {
+            robot.setPower(1);
+        }
+        robot.setPower(0);
+
+        robot.setDriveBackward(); //drive to wall
+        robot.resetEncoders();
+        robot.driveWithEncoders();
+        while(robot.leftBackMotor.getCurrentPosition() < 2000   && !isStopRequested())
+        {
+            robot.setPower(1);
+        }
+        robot.setPower(0);
+
+
+        robot.setRotateRight(); //Turn to face wall
+        robot.resetEncoders();
+        robot.driveWithEncoders();
+        while(robot.leftBackMotor.getCurrentPosition() < 1700   && !isStopRequested())
+        {
+            robot.setPower(1);
+        }
+        robot.setPower(0);
+
+        robot.setStrafeRight(); //Line up to wall
+        robot.resetEncoders();
+        robot.driveWithEncoders();
+        while(robot.leftBackMotor.getCurrentPosition() < 1250   && !isStopRequested())
+        {
+            robot.setPower(1);
+        }
+        robot.setPower(0);
+
+        robot.setStrafeLeft(); //back off wall
+        robot.resetEncoders();
+        robot.driveWithEncoders();
+        while(robot.leftBackMotor.getCurrentPosition() < 75   && !isStopRequested())
+        {
+            robot.setPower(1);
+        }
+        robot.setPower(0);
+
+        robot.setDriveForward(); //drive to depot
+        robot.resetEncoders();
+        robot.driveWithEncoders();
+        while(robot.leftBackMotor.getCurrentPosition() < 2500   && !isStopRequested())
+        {
+            robot.setPower(1);
+        }
+        robot.setPower(0);
+
+        //collection down
+        robot.rightCollectionServo.setPower(-1);
+        robot.leftCollectionServo.setPower(1);
+        sleep(1200);
+        robot.rightCollectionServo.setPower(0);
+        robot.leftCollectionServo.setPower(0);
+
+
+        //Out takes the Team Marker
+        robot.inTakeServo.setPower(-1);
+        sleep(1000);
+        robot.inTakeServo.setPower(0);
+
+        robot.setDriveBackward(); //drive to crater
+        robot.resetEncoders();
+        robot.driveWithEncoders();
+        while(robot.leftBackMotor.getCurrentPosition() < 5000   && !isStopRequested())
+        {
+            robot.setPower(1);
+        }
+        robot.setPower(0);
+
+        //reset Lead screw
+        while(robot.leadScrewMotor.getCurrentPosition() > 13250)
+        {
+            robot.leadScrewMotor.setPower(-1);
+        }
+        robot.leadScrewMotor.setPower(0);
 
     }
 }
