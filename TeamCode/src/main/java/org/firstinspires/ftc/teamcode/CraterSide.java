@@ -239,13 +239,6 @@ public class CraterSide extends LinearOpMode
         }
         robot.setPower(0);
 
-        //reset Lead screw
-
-        while(robot.leadScrewMotor.getCurrentPosition() > 13250)
-        {
-            robot.leadScrewMotor.setPower(-1);
-        }
-        robot.leadScrewMotor.setPower(0);
     }
 
     public void cubeCenter()
@@ -333,13 +326,6 @@ public class CraterSide extends LinearOpMode
             robot.setPower(1);
         }
         robot.setPower(0);
-
-        //reset Lead screw
-        while(robot.leadScrewMotor.getCurrentPosition() > 13250)
-        {
-            robot.leadScrewMotor.setPower(-1);
-        }
-        robot.leadScrewMotor.setPower(0);
 
     }
 
@@ -447,12 +433,6 @@ public class CraterSide extends LinearOpMode
         }
         robot.setPower(0);
 
-        //reset Lead screw
-        while(robot.leadScrewMotor.getCurrentPosition() > 13250)
-        {
-            robot.leadScrewMotor.setPower(-1);
-        }
-        robot.leadScrewMotor.setPower(0);
 
     }
 }

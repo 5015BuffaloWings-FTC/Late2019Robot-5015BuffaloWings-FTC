@@ -12,7 +12,7 @@ import org.opencv.core.Point;
 import org.opencv.core.Rect;
 
 @Autonomous(name="Depot Side")
-@Disabled
+
 public class DepotSide extends LinearOpMode
 {
     Definitions robot = new Definitions();
@@ -127,7 +127,6 @@ public class DepotSide extends LinearOpMode
         robot.setPower(0);
         detector.disable();
     }
-
     public void drop()
     {
         while(robot.leadScrewMotor.getCurrentPosition() < 24000 && !isStopRequested())
@@ -147,7 +146,6 @@ public class DepotSide extends LinearOpMode
         }
         robot.setPower(0);
 
-
         robot.setDriveForward(); //line up to cube
         robot.resetEncoders();
         robot.driveWithEncoders();
@@ -160,7 +158,7 @@ public class DepotSide extends LinearOpMode
         robot.setStrafeLeft(); //hit cube
         robot.resetEncoders();
         robot.driveWithEncoders();
-        while(robot.leftBackMotor.getCurrentPosition() < 1300   && !isStopRequested())
+        while(robot.leftBackMotor.getCurrentPosition() < 1600   && !isStopRequested())
         {
             robot.setPower(1);
         }
@@ -169,7 +167,7 @@ public class DepotSide extends LinearOpMode
         robot.setStrafeRight(); //back up from cube
         robot.resetEncoders();
         robot.driveWithEncoders();
-        while(robot.leftBackMotor.getCurrentPosition() < 550   && !isStopRequested())
+        while(robot.leftBackMotor.getCurrentPosition() < 750   && !isStopRequested())
         {
             robot.setPower(1);
         }
@@ -184,16 +182,16 @@ public class DepotSide extends LinearOpMode
         }
         robot.setPower(0);
 
-        robot.setRotateRight(); //Turn to face wall
+        robot.setRotateLeft(); //Turn to face wall
         robot.resetEncoders();
         robot.driveWithEncoders();
-        while(robot.leftBackMotor.getCurrentPosition() < 1700   && !isStopRequested())
+        while(robot.leftBackMotor.getCurrentPosition() < 1480   && !isStopRequested())
         {
             robot.setPower(1);
         }
         robot.setPower(0);
 
-        robot.setStrafeRight(); //Line up to wall
+        robot.setStrafeLeft(); //Line up to wall
         robot.resetEncoders();
         robot.driveWithEncoders();
         while(robot.leftBackMotor.getCurrentPosition() < 1250   && !isStopRequested())
@@ -202,7 +200,7 @@ public class DepotSide extends LinearOpMode
         }
         robot.setPower(0);
 
-        robot.setStrafeLeft(); //back off wall
+        robot.setStrafeRight(); //back off wall
         robot.resetEncoders();
         robot.driveWithEncoders();
         while(robot.leftBackMotor.getCurrentPosition() < 50   && !isStopRequested())
@@ -241,14 +239,6 @@ public class DepotSide extends LinearOpMode
             robot.setPower(1);
         }
         robot.setPower(0);
-
-        //reset Lead screw
-
-        while(robot.leadScrewMotor.getCurrentPosition() > 13250)
-        {
-            robot.leadScrewMotor.setPower(-1);
-        }
-        robot.leadScrewMotor.setPower(0);
     }
 
     public void cubeCenter()
@@ -278,17 +268,16 @@ public class DepotSide extends LinearOpMode
         }
         robot.setPower(0);
 
-
-        robot.setRotateRight(); //Turn to face wall
+        robot.setRotateLeft(); //Turn to face wall
         robot.resetEncoders();
         robot.driveWithEncoders();
-        while(robot.leftBackMotor.getCurrentPosition() < 1700   && !isStopRequested())
+        while(robot.leftBackMotor.getCurrentPosition() < 1480   && !isStopRequested())
         {
             robot.setPower(1);
         }
         robot.setPower(0);
 
-        robot.setStrafeRight(); //Line up to wall
+        robot.setStrafeLeft(); //Line up to wall
         robot.resetEncoders();
         robot.driveWithEncoders();
         while(robot.leftBackMotor.getCurrentPosition() < 1250   && !isStopRequested())
@@ -297,7 +286,7 @@ public class DepotSide extends LinearOpMode
         }
         robot.setPower(0);
 
-        robot.setStrafeLeft(); //back off wall
+        robot.setStrafeRight(); //back off wall
         robot.resetEncoders();
         robot.driveWithEncoders();
         while(robot.leftBackMotor.getCurrentPosition() < 50   && !isStopRequested())
@@ -336,13 +325,6 @@ public class DepotSide extends LinearOpMode
             robot.setPower(1);
         }
         robot.setPower(0);
-
-        //reset Lead screw
-        while(robot.leadScrewMotor.getCurrentPosition() > 13250)
-        {
-            robot.leadScrewMotor.setPower(-1);
-        }
-        robot.leadScrewMotor.setPower(0);
 
     }
 
@@ -392,16 +374,16 @@ public class DepotSide extends LinearOpMode
         robot.setPower(0);
 
 
-        robot.setRotateRight(); //Turn to face wall
+        robot.setRotateLeft(); //Turn to face wall
         robot.resetEncoders();
         robot.driveWithEncoders();
-        while(robot.leftBackMotor.getCurrentPosition() < 1700   && !isStopRequested())
+        while(robot.leftBackMotor.getCurrentPosition() < 1480   && !isStopRequested())
         {
             robot.setPower(1);
         }
         robot.setPower(0);
 
-        robot.setStrafeRight(); //Line up to wall
+        robot.setStrafeLeft(); //Line up to wall
         robot.resetEncoders();
         robot.driveWithEncoders();
         while(robot.leftBackMotor.getCurrentPosition() < 1250   && !isStopRequested())
@@ -410,10 +392,10 @@ public class DepotSide extends LinearOpMode
         }
         robot.setPower(0);
 
-        robot.setStrafeLeft(); //back off wall
+        robot.setStrafeRight(); //back off wall
         robot.resetEncoders();
         robot.driveWithEncoders();
-        while(robot.leftBackMotor.getCurrentPosition() < 75   && !isStopRequested())
+        while(robot.leftBackMotor.getCurrentPosition() < 50   && !isStopRequested())
         {
             robot.setPower(1);
         }
@@ -449,14 +431,6 @@ public class DepotSide extends LinearOpMode
             robot.setPower(1);
         }
         robot.setPower(0);
-
-        //reset Lead screw
-        while(robot.leadScrewMotor.getCurrentPosition() > 13250)
-        {
-            robot.leadScrewMotor.setPower(-1);
-        }
-        robot.leadScrewMotor.setPower(0);
-
     }
 }
 

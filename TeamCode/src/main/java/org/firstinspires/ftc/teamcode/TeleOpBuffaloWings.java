@@ -43,18 +43,27 @@ public class TeleOpBuffaloWings extends OpMode
         /**
          * LEADSCREW SECTION
          */
-
-            if (robot.leadScrewLimitBot.getState()) {
-                if ((gamepad2.dpad_down || gamepad1.dpad_down)) {
-                    robot.leadScrewMotor.setPower(-1);
-                } else if (gamepad2.dpad_up || gamepad1.dpad_up) {
-                    robot.leadScrewMotor.setPower(1);
-                } else
-                    robot.leadScrewMotor.setPower(0);
-            } else if (!robot.leadScrewLimitBot.getState())
-                robot.leadScrewMotor.setPower(0.5);
-            else
-                robot.leadScrewMotor.setPower(0);
+         if(gamepad2.dpad_down || gamepad1.dpad_down || gamepad2.dpad_up || gamepad1.dpad_up)
+         {
+             robot.leadScrewMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+             if (robot.leadScrewLimitBot.getState()) {
+                 if ((gamepad2.dpad_down || gamepad1.dpad_down)) {
+                     robot.leadScrewMotor.setPower(-1);
+                 } else if (gamepad2.dpad_up || gamepad1.dpad_up) {
+                     robot.leadScrewMotor.setPower(1);
+                 } else
+                     robot.leadScrewMotor.setPower(0);
+             } else if (!robot.leadScrewLimitBot.getState())
+                 robot.leadScrewMotor.setPower(0.5);
+             else
+                 robot.leadScrewMotor.setPower(0);
+         }
+         else
+         {
+             robot.leadScrewMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+             robot.leadScrewMotor.setTargetPosition(-11388);
+             robot.leadScrewMotor.setPower(1);
+         }
 
         /**
          * SCORING ARM SECTION
@@ -67,8 +76,11 @@ public class TeleOpBuffaloWings extends OpMode
         robot.rightCollectionMotor.setPower(gamepad2.right_stick_y);
         robot.leftCollectionMotor.setPower(-gamepad2.right_stick_y);
 
-        if( gamepad2.x)
+
+        if(gamepad2.x)
             robot.inTakeServo.setPower(1);
+        else if(gamepad2.b)
+            robot.inTakeServo.setPower(-1);
         else
             robot.inTakeServo.setPower(0);
 
@@ -103,6 +115,7 @@ public class TeleOpBuffaloWings extends OpMode
          {
              robot.dumpServo.setPower(0);
          }
+
 
 
 
